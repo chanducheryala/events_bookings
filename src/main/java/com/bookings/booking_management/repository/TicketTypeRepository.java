@@ -13,6 +13,6 @@ public interface TicketTypeRepository extends JpaRepository<TicketType, Long> {
     @Query(
             "SELECT t.capacity FROM TicketType t WHERE t.event.id = :eventId AND t.ticketType = :type"
     )
-    Long getReservationCountByTicketType(@Param("eventId") Long eventId, @Param("type") TicketTypeEnum type);
+    Long getTicketTypeCapacityByEventId(@Param("eventId") Long eventId, @Param("type") TicketTypeEnum type);
 
 }

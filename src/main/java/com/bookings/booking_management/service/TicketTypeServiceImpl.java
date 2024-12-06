@@ -12,7 +12,7 @@ public class TicketTypeServiceImpl implements TicketTypeService{
     private TicketTypeRepository ticketTypeRepository;
 
     @Override
-    public Long getReservationCountByTicketType(Long eventId, TicketTypeEnum type) {
-        return ticketTypeRepository.getReservationCountByTicketType(eventId, type);
+    public Long getTicketTypeCapacityByEventId(Long eventId, TicketTypeEnum type) {
+        return ticketTypeRepository.getTicketTypeCapacityByEventId(eventId, type);
     }
 }

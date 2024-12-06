@@ -38,7 +38,7 @@ public class EventBookingServiceImpl implements EventBookingService{
         if(event == null) {
             throw new NoEventFoundException(String.format("No Event found with eventId %d", eventId));
         }
-        Long eventTicketTypeCapacity = ticketTypeService.getReservationCountByTicketType(
+        Long eventTicketTypeCapacity = ticketTypeService.getTicketTypeCapacityByEventId(
                 eventId, eventBookingDto.getReserveSeatType()
         );
         log.info("eventTicketTypeCapacity : {}", eventTicketTypeCapacity);
