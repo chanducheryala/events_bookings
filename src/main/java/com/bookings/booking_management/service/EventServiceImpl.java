@@ -1,19 +1,16 @@
 package com.bookings.booking_management.service;
 
 import com.bookings.booking_management.dto.EventDto;
-import com.bookings.booking_management.dto.GoldDto;
-import com.bookings.booking_management.dto.PlatinumDto;
-import com.bookings.booking_management.dto.SilverDto;
+import com.bookings.booking_management.dto.TicketTypeDto;
 import com.bookings.booking_management.exception.NoEventFoundException;
 import com.bookings.booking_management.model.Event;
-import com.bookings.booking_management.model.Gold;
-import com.bookings.booking_management.model.Platinum;
-import com.bookings.booking_management.model.Silver;
+import com.bookings.booking_management.model.TicketType;
 import com.bookings.booking_management.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +23,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventDto create(EventDto eventDto) {
         Event event = convertEventToEventDto(eventDto);
+
         Event savedEvent = eventRepository.save(event);
         eventDto.setId(savedEvent.getId());
         return eventDto;
@@ -42,37 +40,24 @@ public class EventServiceImpl implements EventService {
     }
 
     private Event convertEventToEventDto(EventDto eventDto) {
-        return new Event()
-                .setTitle(eventDto.getTitle())
+        Event event = new Event()
+                 .setTitle(eventDto.getTitle())
                 .setAbout(eventDto.getAbout())
                 .setDate(eventDto.getDate())
                 .setTime(eventDto.getTime())
                 .setDuration(eventDto.getDuration())
                 .setLanguage(eventDto.getLanguage())
-                .setVenue(eventDto.getVenue())
-                .setPlatinum(convertPlatinumDtoPlatinum(Optional.ofNullable(eventDto.getPlatinum())))
-                .setGold(convertGoldDtoGold(Optional.ofNullable(eventDto.getGold())))
-                .setSilver(convertSilverDtoSilver(Optional.ofNullable(eventDto.getSilver())));
-    }
-
-    private Platinum convertPlatinumDtoPlatinum(Optional<PlatinumDto> platinumDto) {
-        return platinumDto.map(dto -> new Platinum()
-                        .setCapacity(dto.getCapacity())
-                        .setCost(dto.getCost()))
-                .orElse(new Platinum());
-    }
-
-    private Gold convertGoldDtoGold(Optional<GoldDto> goldDto) {
-        return goldDto.map(dto -> new Gold()
-                        .setCapacity(dto.getCapacity())
-                        .setCost(dto.getCost()))
-                .orElse(new Gold());
-    }
-
-    private Silver convertSilverDtoSilver(Optional<SilverDto> silverDto) {
-        return silverDto.map(dto -> new Silver()
-                        .setCapacity(dto.getCapacity())
-                        .setCost(dto.getCost()))
-                .orElse(new Silver());
+                .setVenue(eventDto.getVenue());
+        List<TicketType> ticketTypes = new ArrayList<>();
+        for(TicketTypeDto ticketTypeDto: eventDto.getTicketTypes()) {
+            TicketType ticketType = new TicketType()
+                    .setEvent(event)
+                    .setTicketType(ticketTypeDto.getTicketType())
+                    .setCost(ticketTypeDto.getCost())
+                    .setCapacity(ticketTypeDto.getCapacity());
+            ticketTypes.add(ticketType);
+        }
+        event.setTicketTypes(ticketTypes);
+        return event;
     }
 }

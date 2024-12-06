@@ -7,6 +7,7 @@ import lombok.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -39,11 +40,5 @@ public class EventDto {
     private String language;
 
     @Valid
-    private PlatinumDto platinum;
-
-    @Valid
-    private GoldDto gold;
-
-    @Valid
-    private SilverDto silver;
+    List<TicketTypeDto> ticketTypes;
 }

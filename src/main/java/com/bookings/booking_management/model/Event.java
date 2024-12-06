@@ -1,5 +1,6 @@
 package com.bookings.booking_management.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -7,6 +8,7 @@ import lombok.experimental.Accessors;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -45,12 +47,7 @@ public class Event {
     @Column(name = "language")
     private String language;
 
-    @Embedded
-    private Platinum platinum;
-
-    @Embedded
-    private Gold gold;
-
-    @Embedded
-    private Silver silver;
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<TicketType> ticketTypes;
 }
