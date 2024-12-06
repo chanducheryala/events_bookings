@@ -2,6 +2,7 @@ package com.bookings.booking_management.service;
 
 import com.bookings.booking_management.dto.EventDto;
 import com.bookings.booking_management.dto.TicketTypeDto;
+import com.bookings.booking_management.enums.TicketTypeEnum;
 import com.bookings.booking_management.exception.NoEventFoundException;
 import com.bookings.booking_management.model.Event;
 import com.bookings.booking_management.model.TicketType;
@@ -38,6 +39,7 @@ public class EventServiceImpl implements EventService {
     public List<Event> getEventsFromDate(LocalDate date) {
         return eventRepository.getEventsFromDate(date);
     }
+
 
     private Event convertEventToEventDto(EventDto eventDto) {
         Event event = new Event()

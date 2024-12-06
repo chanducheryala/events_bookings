@@ -31,4 +31,11 @@ public class GlobalExceptionHandler {
         errorResponse.put("message", ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(TicketUnavailableException.class)
+    public ResponseEntity<Object> handleTicketsUnAvailable(TicketUnavailableException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("message", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 }

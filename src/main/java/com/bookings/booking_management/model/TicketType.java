@@ -34,4 +34,14 @@ public class TicketType {
     @JoinColumn(name = "event_id")
     @JsonBackReference
     private Event event;
+
+    @Override
+    public String toString() {
+        return "TicketType{" +
+                "id=" + id +
+                ", ticketType=" + ticketType +
+                ", capacity=" + capacity +
+                ", cost=" + cost +
+                '}';
+    }
 }

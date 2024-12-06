@@ -50,4 +50,22 @@ public class Event {
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<TicketType> ticketTypes;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<EventBooking> eventBookings;
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", about='" + about + '\'' +
+                ", date=" + date +
+                ", time=" + time +
+                ", duration=" + duration +
+                ", venue='" + venue + '\'' +
+                ", language='" + language + '\'' +
+                '}';
+    }
 }
