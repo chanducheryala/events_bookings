@@ -7,19 +7,33 @@ import com.bookings.booking_management.exception.NoEventFoundException;
 import com.bookings.booking_management.model.Event;
 import com.bookings.booking_management.model.TicketType;
 import com.bookings.booking_management.repository.EventRepository;
+import com.bookings.booking_management.response.EventBookingResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class EventServiceImpl implements EventService {
 
     @Autowired
     private EventRepository eventRepository;
+    private EventBookingService eventBookingService;
+
+    public EventServiceImpl(
+            EventRepository eventRepository,
+           @Lazy EventBookingService eventBookingService
+    ) {
+        this.eventRepository = eventRepository;
+        this.eventBookingService = eventBookingService;
+    }
 
     @Override
     public EventDto create(EventDto eventDto) {
@@ -36,8 +50,37 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getEventsFromDate(LocalDate date) {
-        return eventRepository.getEventsFromDate(date);
+    public List<EventBookingResponse> getEventsFromDate(LocalDate date) {
+        List<Event> events = eventRepository.getEventsFromDate(date);
+        log.info("eventBookingService", eventBookingService);
+        List<EventBookingResponse> response = new ArrayList<>();
+        for(Event event : events) {
+            HashMap<TicketTypeEnum, HashMap<String, Long>> eventTicketType = new HashMap<>();
+            for(TicketType ticketType: event.getTicketTypes()) {
+                HashMap<String, Long> ticketTypeStats = new HashMap<>();
+                log.info("eventId", event.getId());
+                log.info("ticketType", ticketType.getTicketType());
+                Long bookingsOfTicketType = Optional.ofNullable(eventBookingService.getReservationSeatsCountByTicketTypes(event.getId(), ticketType.getTicketType())).orElse(0L);
+                log.info("bookingsOfTicketType", bookingsOfTicketType);
+               ticketTypeStats.put("availableTickets", ticketType.getCapacity() - bookingsOfTicketType);
+               ticketTypeStats.put("capacity", ticketType.getCapacity());
+               ticketTypeStats.put("cost", ticketType.getCost());
+               eventTicketType.put(ticketType.getTicketType(), ticketTypeStats);
+            }
+            response.add(
+                    new EventBookingResponse()
+                            .setId(event.getId())
+                            .setTitle(event.getTitle())
+                            .setAbout(event.getAbout())
+                            .setDate(event.getDate())
+                            .setTime(event.getTime())
+                            .setDuration(event.getDuration())
+                            .setLanguage(event.getLanguage())
+                            .setVenue(event.getVenue())
+                            .setEventDetails(eventTicketType)
+            );
+        }
+        return response;
     }
 
 

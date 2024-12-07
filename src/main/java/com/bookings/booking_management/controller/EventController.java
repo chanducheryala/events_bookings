@@ -3,6 +3,7 @@ package com.bookings.booking_management.controller;
 
 import com.bookings.booking_management.dto.EventDto;
 import com.bookings.booking_management.model.Event;
+import com.bookings.booking_management.response.EventBookingResponse;
 import com.bookings.booking_management.service.EventService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -41,9 +42,9 @@ public class EventController {
     }
 
     @GetMapping("/api/v1/events")
-    public ResponseEntity<List<Event>> getEventsFromDate(
+    public ResponseEntity<List<EventBookingResponse>> getEventsFromDate(
             @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate) {
-        List<Event> events = eventService.getEventsFromDate(startDate);
+        List<EventBookingResponse> events = eventService.getEventsFromDate(startDate);
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 }

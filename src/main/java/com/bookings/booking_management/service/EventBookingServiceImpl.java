@@ -9,7 +9,10 @@ import com.bookings.booking_management.model.EventBooking;
 import com.bookings.booking_management.repository.EventBookingRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Slf4j
@@ -23,7 +26,7 @@ public class EventBookingServiceImpl implements EventBookingService{
 
     public EventBookingServiceImpl(
             EventBookingRepository eventBookingRepository,
-            EventService eventService,
+             EventService eventService,
             TicketTypeService ticketTypeService
     ) {
         this.eventBookingRepository = eventBookingRepository;
@@ -64,6 +67,12 @@ public class EventBookingServiceImpl implements EventBookingService{
     }
 
     public Long getReservationSeatsCountByTicketTypes(Long eventId, TicketTypeEnum type) {
+        log.info("eventId and ticketType is {}, {}", eventId, type);
         return eventBookingRepository.getReservationSeatsCountByTicketTypes(eventId, type);
+    }
+
+    @Override
+    public List<EventBooking> getEventBookingsByEmail(String email) {
+        return eventBookingRepository.getEventBookingsByEmail(email);
     }
 }

@@ -33,6 +33,7 @@ public class EventBooking {
     @Column(name = "reserved_seats")
     private Long reservedSeats;
 
+
     @Column(name = "reserved_seat_type")
     @Enumerated(EnumType.STRING)
     private TicketTypeEnum reserveSeatType;
