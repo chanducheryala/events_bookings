@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface TicketTypeRepository extends JpaRepository<TicketType, Long> {
 
@@ -14,5 +16,11 @@ public interface TicketTypeRepository extends JpaRepository<TicketType, Long> {
             "SELECT t.capacity FROM TicketType t WHERE t.event.id = :eventId AND t.ticketType = :type"
     )
     Long getTicketTypeCapacityByEventId(@Param("eventId") Long eventId, @Param("type") TicketTypeEnum type);
+
+
+    @Query(
+            "SELECT tt FROM TicketType tt WHERE tt.event.id = :eventId"
+    )
+    List<TicketType> getEventTicketTypes(@Param("eventId") Long eventId);
 
 }

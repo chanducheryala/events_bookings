@@ -1,13 +1,14 @@
-package com.bookings.booking_management.service;
+package com.bookings.booking_management.service.impl;
 
 import com.bookings.booking_management.dto.EventDto;
 import com.bookings.booking_management.dto.TicketTypeDto;
-import com.bookings.booking_management.enums.TicketTypeEnum;
 import com.bookings.booking_management.exception.NoEventFoundException;
 import com.bookings.booking_management.model.Event;
 import com.bookings.booking_management.model.TicketType;
 import com.bookings.booking_management.repository.EventRepository;
 import com.bookings.booking_management.response.EventBookingResponse;
+import com.bookings.booking_management.service.EventService;
+import com.bookings.booking_management.service.TicketTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,14 +25,14 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private EventRepository eventRepository;
-    private EventBookingService eventBookingService;
+    private TicketTypeService ticketTypeService;
 
     public EventServiceImpl(
             EventRepository eventRepository,
-           @Lazy EventBookingService eventBookingService
+            @Lazy TicketTypeService ticketTypeService
     ) {
         this.eventRepository = eventRepository;
-        this.eventBookingService = eventBookingService;
+        this.ticketTypeService = ticketTypeService;
     }
 
     @Override
@@ -52,21 +52,8 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventBookingResponse> getEventsFromDate(LocalDate date) {
         List<Event> events = eventRepository.getEventsFromDate(date);
-        log.info("eventBookingService", eventBookingService);
         List<EventBookingResponse> response = new ArrayList<>();
         for(Event event : events) {
-            HashMap<TicketTypeEnum, HashMap<String, Long>> eventTicketType = new HashMap<>();
-            for(TicketType ticketType: event.getTicketTypes()) {
-                HashMap<String, Long> ticketTypeStats = new HashMap<>();
-                log.info("eventId", event.getId());
-                log.info("ticketType", ticketType.getTicketType());
-                Long bookingsOfTicketType = Optional.ofNullable(eventBookingService.getReservationSeatsCountByTicketTypes(event.getId(), ticketType.getTicketType())).orElse(0L);
-                log.info("bookingsOfTicketType", bookingsOfTicketType);
-               ticketTypeStats.put("availableTickets", ticketType.getCapacity() - bookingsOfTicketType);
-               ticketTypeStats.put("capacity", ticketType.getCapacity());
-               ticketTypeStats.put("cost", ticketType.getCost());
-               eventTicketType.put(ticketType.getTicketType(), ticketTypeStats);
-            }
             response.add(
                     new EventBookingResponse()
                             .setId(event.getId())
@@ -77,7 +64,7 @@ public class EventServiceImpl implements EventService {
                             .setDuration(event.getDuration())
                             .setLanguage(event.getLanguage())
                             .setVenue(event.getVenue())
-                            .setEventDetails(eventTicketType)
+                            .setEventDetails(Optional.ofNullable(ticketTypeService.getTicketTypeStats(event.getId())).orElse(new ArrayList<>()))
             );
         }
         return response;

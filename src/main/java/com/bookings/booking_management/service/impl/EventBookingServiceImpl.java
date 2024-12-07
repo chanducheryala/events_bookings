@@ -1,4 +1,4 @@
-package com.bookings.booking_management.service;
+package com.bookings.booking_management.service.impl;
 
 import com.bookings.booking_management.dto.EventBookingDto;
 import com.bookings.booking_management.enums.TicketTypeEnum;
@@ -7,27 +7,29 @@ import com.bookings.booking_management.exception.TicketUnavailableException;
 import com.bookings.booking_management.model.Event;
 import com.bookings.booking_management.model.EventBooking;
 import com.bookings.booking_management.repository.EventBookingRepository;
+import com.bookings.booking_management.service.EventBookingService;
+import com.bookings.booking_management.service.EventService;
+import com.bookings.booking_management.service.TicketTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-
 
 @Slf4j
 @Service
-public class EventBookingServiceImpl implements EventBookingService{
+public class EventBookingServiceImpl implements EventBookingService {
+
+
+    private final EventBookingRepository eventBookingRepository;
+    private final EventService eventService;
+    private final TicketTypeService ticketTypeService;
 
     @Autowired
-    private EventBookingRepository eventBookingRepository;
-    private EventService eventService;
-    private TicketTypeService ticketTypeService;
-
     public EventBookingServiceImpl(
             EventBookingRepository eventBookingRepository,
-             EventService eventService,
-            TicketTypeService ticketTypeService
+            EventService eventService,
+            @Lazy TicketTypeService ticketTypeService
     ) {
         this.eventBookingRepository = eventBookingRepository;
         this.eventService = eventService;

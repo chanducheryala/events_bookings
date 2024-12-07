@@ -1,6 +1,7 @@
 package com.bookings.booking_management.response;
 
 import com.bookings.booking_management.enums.TicketTypeEnum;
+import com.bookings.booking_management.util.TicketTypeDetails;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,5 +37,5 @@ public class EventBookingResponse {
 
     private String language;
 
-    private  HashMap<TicketTypeEnum, HashMap<String, Long>> eventDetails;
+    private List<TicketTypeDetails> eventDetails;
 }
