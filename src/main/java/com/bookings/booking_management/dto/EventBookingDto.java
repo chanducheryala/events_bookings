@@ -1,5 +1,6 @@
 package com.bookings.booking_management.dto;
 
+import com.bookings.booking_management.enums.DiscountType;
 import com.bookings.booking_management.enums.PaymentType;
 import com.bookings.booking_management.enums.TicketTypeEnum;
 import com.bookings.booking_management.model.Event;
@@ -34,4 +35,10 @@ public class EventBookingDto {
 
     @NotNull(message = "payment_type cannot be null")
     private PaymentType paymentType;
+
+    private Long discount;
+
+    private DiscountType discountType;
+
+    private Long price;
 }
