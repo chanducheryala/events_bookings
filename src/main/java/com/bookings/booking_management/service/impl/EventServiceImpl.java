@@ -38,7 +38,6 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventDto create(EventDto eventDto) {
         Event event = convertEventToEventDto(eventDto);
-
         Event savedEvent = eventRepository.save(event);
         eventDto.setId(savedEvent.getId());
         return eventDto;

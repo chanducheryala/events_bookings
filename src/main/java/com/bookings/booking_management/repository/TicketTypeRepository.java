@@ -23,4 +23,9 @@ public interface TicketTypeRepository extends JpaRepository<TicketType, Long> {
     )
     List<TicketType> getEventTicketTypes(@Param("eventId") Long eventId);
 
+
+    @Query(
+            "SELECT tt.cost FROM TicketType tt WHERE tt.event.id = :eventId AND tt.ticketType = :ticketType"
+    )
+    Long getTicketCostByEventAndTicketType(@Param("eventId") Long eventId, @Param("ticketType") TicketTypeEnum ticketType);
 }

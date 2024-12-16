@@ -1,6 +1,7 @@
 package com.bookings.booking_management.model;
 
 
+import com.bookings.booking_management.enums.PaymentType;
 import com.bookings.booking_management.enums.TicketTypeEnum;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -13,7 +14,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Setter
 @Getter
-
 @Table(name =  "event_bookings")
 public class EventBooking {
 
@@ -37,6 +37,10 @@ public class EventBooking {
     @Column(name = "reserved_seat_type")
     @Enumerated(EnumType.STRING)
     private TicketTypeEnum reserveSeatType;
+
+
+    @Column(name = "payment_type")
+    private PaymentType paymentType;
 
 
     @Override

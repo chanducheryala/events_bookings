@@ -42,4 +42,9 @@ public class TicketTypeServiceImpl implements TicketTypeService {
                     .setAvailableSeats(ticketType.getCapacity() - Optional.ofNullable(eventBookingService.getReservationSeatsCountByTicketTypes(eventId, ticketType.getTicketType())).orElse(0L));
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public Long getTicketCostByEventAndTicketType(Long eventId, TicketTypeEnum ticketType) {
+        return ticketTypeRepository.getTicketCostByEventAndTicketType(eventId, ticketType);
+    }
 }
