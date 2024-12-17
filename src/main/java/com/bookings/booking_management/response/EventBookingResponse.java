@@ -1,8 +1,6 @@
 package com.bookings.booking_management.response;
 
-import com.bookings.booking_management.enums.TicketTypeEnum;
 import com.bookings.booking_management.util.TicketTypeDetails;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +10,6 @@ import lombok.experimental.Accessors;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
 import java.util.List;
 
 @NoArgsConstructor

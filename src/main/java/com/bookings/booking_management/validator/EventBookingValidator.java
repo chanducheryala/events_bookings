@@ -21,8 +21,8 @@ public class EventBookingValidator {
     }
 
     public void validateTicketAvailability(Long eventId, EventBookingDto eventBookingDto) {
-        Long capacity = ticketTypeService.getTicketTypeCapacityByEventId(eventId, eventBookingDto.getReserveSeatType());
-        Long reserved = eventBookingService.getReservationSeatsCountByTicketTypes(eventId, eventBookingDto.getReserveSeatType());
+        Long capacity = ticketTypeService.getTicketTypeCapacityByEventId(eventId, eventBookingDto.getReservedSeatType());
+        Long reserved = eventBookingService.getReservationSeatsCountByTicketTypes(eventId, eventBookingDto.getReservedSeatType());
 
         if (reserved + eventBookingDto.getReservedSeats() > capacity) {
             throw new TicketUnavailableException(String.format(

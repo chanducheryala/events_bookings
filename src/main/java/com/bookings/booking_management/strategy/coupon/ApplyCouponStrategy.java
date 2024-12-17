@@ -1,12 +1,9 @@
 package com.bookings.booking_management.strategy.coupon;
 
 import com.bookings.booking_management.dto.EventBookingDto;
-import com.bookings.booking_management.factory.coupon.CouponFactory;
 import com.bookings.booking_management.factory.coupon.DiscountFactory;
-import com.bookings.booking_management.model.TicketType;
 import com.bookings.booking_management.service.TicketTypeService;
 import com.bookings.booking_management.strategy.discount.DiscountStrategy;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 

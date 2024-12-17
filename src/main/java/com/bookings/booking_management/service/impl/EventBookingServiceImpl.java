@@ -2,13 +2,12 @@ package com.bookings.booking_management.service.impl;
 
 import com.bookings.booking_management.dto.EventBookingDto;
 import com.bookings.booking_management.enums.DiscountType;
-import com.bookings.booking_management.enums.TicketTypeEnum;
 import com.bookings.booking_management.factory.coupon.CouponFactory;
-import com.bookings.booking_management.factory.coupon.DiscountFactory;
 import com.bookings.booking_management.factory.payment.PaymentFactory;
 import com.bookings.booking_management.mapper.EventBookingMapper;
 import com.bookings.booking_management.model.Event;
 import com.bookings.booking_management.model.EventBooking;
+import com.bookings.booking_management.model.Ticket;
 import com.bookings.booking_management.repository.EventBookingRepository;
 import com.bookings.booking_management.service.EventBookingService;
 import com.bookings.booking_management.service.EventService;
@@ -85,7 +84,7 @@ public class EventBookingServiceImpl implements EventBookingService {
         }
     }
 
-    public Long getReservationSeatsCountByTicketTypes(Long eventId, TicketTypeEnum type) {
+    public Long getReservationSeatsCountByTicketTypes(Long eventId, Ticket type) {
         log.info("eventId and ticketType is {}, {}", eventId, type);
         return eventBookingRepository.getReservationSeatsCountByTicketTypes(eventId, type);
     }

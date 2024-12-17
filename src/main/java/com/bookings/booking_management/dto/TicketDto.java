@@ -1,8 +1,5 @@
 package com.bookings.booking_management.dto;
 
-import com.bookings.booking_management.enums.TicketTypeEnum;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -14,10 +11,10 @@ import lombok.Setter;
 @NotNull
 @Getter
 @Setter
-public class TicketTypeDto {
+public class TicketDto {
 
     @NotNull(message = "ticket type cannot be empty")
-    private TicketTypeEnum ticketType;
+    private String type;
 
     @NotNull(message = "capacity cannot be empty")
     @Positive(message = "capacity cannot be negative")

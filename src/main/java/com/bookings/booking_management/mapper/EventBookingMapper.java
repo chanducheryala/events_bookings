@@ -12,14 +12,14 @@ public class EventBookingMapper {
                 .setEvent(event)
                 .setEmail(eventBookingDto.getEmail())
                 .setReservedSeats(eventBookingDto.getReservedSeats())
-                .setReserveSeatType(eventBookingDto.getReserveSeatType());
+                .setReserveSeatType(eventBookingDto.getReservedSeatType());
     }
 
     public EventBookingDto toDto(EventBooking eventBooking) {
         return new EventBookingDto()
                 .setEmail(eventBooking.getEmail())
                 .setReservedSeats(eventBooking.getReservedSeats())
-                .setReserveSeatType(eventBooking.getReserveSeatType())
+                .setReservedSeatType(eventBooking.getReserveSeatType())
                 .setPaymentType(eventBooking.getPaymentType());
     }
 }

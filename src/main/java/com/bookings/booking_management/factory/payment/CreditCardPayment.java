@@ -1,6 +1,5 @@
 package com.bookings.booking_management.factory.payment;
 
-import com.bookings.booking_management.enums.TicketTypeEnum;
 import com.bookings.booking_management.service.Payment;
 import jakarta.transaction.Transactional;
 

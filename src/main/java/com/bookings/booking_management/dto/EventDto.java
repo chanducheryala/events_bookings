@@ -3,6 +3,7 @@ package com.bookings.booking_management.dto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Accessors(chain = true)
 @AllArgsConstructor
 public class EventDto {
 
@@ -26,7 +28,6 @@ public class EventDto {
     @NotNull(message = "date cannot be empty")
     private LocalDate date;
 
-
     @NotNull(message = "time cannot be empty")
     private LocalTime time;
 
@@ -40,5 +41,5 @@ public class EventDto {
     private String language;
 
     @Valid
-    List<TicketTypeDto> ticketTypes;
+    List<TicketDto> ticketTypes;
 }

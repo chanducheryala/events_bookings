@@ -1,10 +1,11 @@
 package com.bookings.booking_management.service.impl;
 
 import com.bookings.booking_management.dto.EventDto;
-import com.bookings.booking_management.dto.TicketTypeDto;
+import com.bookings.booking_management.dto.TicketDto;
 import com.bookings.booking_management.exception.NoEventFoundException;
+import com.bookings.booking_management.mapper.EventMapper;
 import com.bookings.booking_management.model.Event;
-import com.bookings.booking_management.model.TicketType;
+import com.bookings.booking_management.model.Ticket;
 import com.bookings.booking_management.repository.EventRepository;
 import com.bookings.booking_management.response.EventBookingResponse;
 import com.bookings.booking_management.service.EventService;
@@ -23,24 +24,26 @@ import java.util.Optional;
 @Service
 public class EventServiceImpl implements EventService {
 
-    @Autowired
-    private EventRepository eventRepository;
-    private TicketTypeService ticketTypeService;
+    private final EventRepository eventRepository;
+    private final TicketTypeService ticketTypeService;
+    private final EventMapper eventMapper;
 
+    @Autowired
     public EventServiceImpl(
             EventRepository eventRepository,
-            @Lazy TicketTypeService ticketTypeService
+            @Lazy TicketTypeService ticketTypeService,
+            EventMapper eventMapper
     ) {
         this.eventRepository = eventRepository;
         this.ticketTypeService = ticketTypeService;
+        this.eventMapper = eventMapper;
     }
 
     @Override
     public EventDto create(EventDto eventDto) {
-        Event event = convertEventToEventDto(eventDto);
+        Event event = eventMapper.toEntity(eventDto);
         Event savedEvent = eventRepository.save(event);
-        eventDto.setId(savedEvent.getId());
-        return eventDto;
+        return eventMapper.toDto(savedEvent);
     }
 
     @Override
@@ -79,16 +82,16 @@ public class EventServiceImpl implements EventService {
                 .setDuration(eventDto.getDuration())
                 .setLanguage(eventDto.getLanguage())
                 .setVenue(eventDto.getVenue());
-        List<TicketType> ticketTypes = new ArrayList<>();
-        for(TicketTypeDto ticketTypeDto: eventDto.getTicketTypes()) {
-            TicketType ticketType = new TicketType()
+        List<Ticket> tickets = new ArrayList<>();
+        for(TicketDto ticketTypeDto: eventDto.getTicketTypes()) {
+            Ticket ticket = new Ticket()
                     .setEvent(event)
-                    .setTicketType(ticketTypeDto.getTicketType())
+                    .setType(ticketTypeDto.getType())
                     .setCost(ticketTypeDto.getCost())
                     .setCapacity(ticketTypeDto.getCapacity());
-            ticketTypes.add(ticketType);
+            tickets.add(ticket);
         }
-        event.setTicketTypes(ticketTypes);
+        event.setTickets(tickets);
         return event;
     }
 }

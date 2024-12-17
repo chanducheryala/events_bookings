@@ -2,8 +2,8 @@ package com.bookings.booking_management.dto;
 
 import com.bookings.booking_management.enums.DiscountType;
 import com.bookings.booking_management.enums.PaymentType;
-import com.bookings.booking_management.enums.TicketTypeEnum;
 import com.bookings.booking_management.model.Event;
+import com.bookings.booking_management.model.Ticket;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -31,7 +31,7 @@ public class EventBookingDto {
     private Long reservedSeats;
 
     @NotNull(message = "reserved seat type should one of PLATINUM / GOLD / SILVER")
-    private TicketTypeEnum reserveSeatType;
+    private Ticket reservedSeatType;
 
     @NotNull(message = "payment_type cannot be null")
     private PaymentType paymentType;

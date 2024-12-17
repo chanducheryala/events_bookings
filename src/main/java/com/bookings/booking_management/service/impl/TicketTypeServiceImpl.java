@@ -1,15 +1,13 @@
 package com.bookings.booking_management.service.impl;
 
 import com.bookings.booking_management.util.TicketTypeDetails;
-import com.bookings.booking_management.enums.TicketTypeEnum;
-import com.bookings.booking_management.model.TicketType;
+import com.bookings.booking_management.model.Ticket;
 import com.bookings.booking_management.repository.TicketTypeRepository;
 import com.bookings.booking_management.service.EventBookingService;
 import com.bookings.booking_management.service.TicketTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,16 +25,16 @@ public class TicketTypeServiceImpl implements TicketTypeService {
     }
 
     @Override
-    public Long getTicketTypeCapacityByEventId(Long eventId, TicketTypeEnum type) {
+    public Long getTicketTypeCapacityByEventId(Long eventId, Ticket type) {
         return ticketTypeRepository.getTicketTypeCapacityByEventId(eventId, type);
     }
 
     @Override
     public List<TicketTypeDetails> getTicketTypeStats(Long eventId) {
-        List<TicketType> eventTicketTypes = ticketTypeRepository.getEventTicketTypes(eventId);
-        return eventTicketTypes.stream().map(ticketType -> {
+        List<Ticket> eventTickets = ticketTypeRepository.getEventTicketTypes(eventId);
+        return eventTickets.stream().map(ticketType -> {
           return new TicketTypeDetails()
-                    .setType(ticketType.getTicketType())
+                    .setType(ticketType.getType())
                     .setCapacity(ticketType.getCapacity())
                     .setCost(ticketType.getCost())
                     .setAvailableSeats(ticketType.getCapacity() - Optional.ofNullable(eventBookingService.getReservationSeatsCountByTicketTypes(eventId, ticketType.getTicketType())).orElse(0L));
@@ -44,7 +42,7 @@ public class TicketTypeServiceImpl implements TicketTypeService {
     }
 
     @Override
-    public Long getTicketCostByEventAndTicketType(Long eventId, TicketTypeEnum ticketType) {
+    public Long getTicketCostByEventAndTicketType(Long eventId, Ticket ticketType) {
         return ticketTypeRepository.getTicketCostByEventAndTicketType(eventId, ticketType);
     }
 }

@@ -1,7 +1,7 @@
 package com.bookings.booking_management.util;
 
 
-import com.bookings.booking_management.enums.TicketTypeEnum;
+import com.bookings.booking_management.model.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class TicketTypeDetails {
-    private TicketTypeEnum type;
+    private Ticket type;
     private Long capacity;
     private Long availableSeats;
     private Long cost;

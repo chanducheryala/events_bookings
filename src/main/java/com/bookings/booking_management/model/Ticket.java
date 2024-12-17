@@ -1,6 +1,5 @@
 package com.bookings.booking_management.model;
 
-import com.bookings.booking_management.enums.TicketTypeEnum;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,18 +10,18 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
-@Table(name = "ticket_type")
-public class TicketType {
+@Table(name = "ticket")
+public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "ticket_type")
-    @Enumerated(EnumType.STRING)
-    private TicketTypeEnum ticketType;
+    @Column(name = "type")
+    private String type;
 
     @Column(name = "capacity")
     private Long capacity;
@@ -37,11 +36,12 @@ public class TicketType {
 
     @Override
     public String toString() {
-        return "TicketType{" +
+        return "Ticket{" +
                 "id=" + id +
-                ", ticketType=" + ticketType +
+                ", type" + type +
                 ", capacity=" + capacity +
                 ", cost=" + cost +
+                ", event=" + event +
                 '}';
     }
 }
