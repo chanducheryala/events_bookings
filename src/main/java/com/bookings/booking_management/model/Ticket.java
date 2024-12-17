@@ -34,6 +34,13 @@ public class Ticket {
     @JsonBackReference
     private Event event;
 
+    public Ticket(String type, Long cost, Long capacity, Event event) {
+        this.type = type;
+        this.cost = cost;
+        this.capacity = capacity;
+        this.event = event;
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +
