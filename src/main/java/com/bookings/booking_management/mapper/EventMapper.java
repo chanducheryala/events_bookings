@@ -1,6 +1,6 @@
 package com.bookings.booking_management.mapper;
 
-
+import com.bookings.booking_management.builder.event.EventBuilder;
 import com.bookings.booking_management.dto.EventDto;
 import com.bookings.booking_management.model.Event;
 import lombok.RequiredArgsConstructor;
@@ -10,15 +10,17 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class EventMapper {
 
+    private final EventBuilder eventBuilder;
     public Event toEntity(EventDto eventDto) {
-        return new Event()
+        return eventBuilder
                 .setTitle(eventDto.getTitle())
-                .setDate(eventDto.getDate())
-                .setDuration(eventDto.getDuration())
                 .setAbout(eventDto.getAbout())
+                .setDate(eventDto.getDate())
+                .setTime(eventDto.getTime())
+                .setDuration(eventDto.getDuration())
                 .setLanguage(eventDto.getLanguage())
                 .setVenue(eventDto.getVenue())
-                .setTime(eventDto.getTime());
+                .build();
     }
 
     public EventDto toDto(Event event) {
