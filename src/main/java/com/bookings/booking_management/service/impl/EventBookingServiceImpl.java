@@ -41,7 +41,7 @@ public class EventBookingServiceImpl implements EventBookingService {
             @Lazy TicketService ticketService,
             PaymentFactory paymentFactory,
             @Lazy EventBookingValidator eventBookingValidator,
-            EventBookingMapper eventBookingMapper,
+            @Lazy EventBookingMapper eventBookingMapper,
             CouponFactory couponFactory
     ) {
         this.eventBookingRepository = eventBookingRepository;
@@ -54,13 +54,14 @@ public class EventBookingServiceImpl implements EventBookingService {
     }
 
     @Override
-    public EventBookingDto create(Long eventId, EventBookingDto eventBookingDto) {
+    public EventBooking create(Long eventId, EventBookingDto eventBookingDto) {
         eventBookingValidator.validateTicketAvailability(eventId, eventBookingDto);
+        eventBookingDto.setEvent(eventId);
         EventBooking eventBooking = eventBookingMapper.toEntity(eventBookingDto);
         processPayment(eventId, eventBooking);
         EventBooking savedEventBooking = eventBookingRepository.save(eventBooking);
         log.info(eventBooking.toString());
-        return eventBookingMapper.toDto(savedEventBooking);
+        return savedEventBooking;
     }
 
     private void processPayment(Long eventId, EventBooking eventBooking) {

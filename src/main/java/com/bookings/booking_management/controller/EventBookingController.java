@@ -1,6 +1,7 @@
 package com.bookings.booking_management.controller;
 
 import com.bookings.booking_management.dto.EventBookingDto;
+import com.bookings.booking_management.model.EventBooking;
 import com.bookings.booking_management.service.EventBookingService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class EventBookingController {
     private EventBookingService eventBookingService;
 
     @PostMapping("/api/v1/event-bookings/{eventId}")
-    public ResponseEntity<EventBookingDto> create(@PathVariable("eventId") Long eventId, @Valid @RequestBody EventBookingDto eventBookingDto) {
+    public ResponseEntity<EventBooking> create(@PathVariable("eventId") Long eventId, @Valid @RequestBody EventBookingDto eventBookingDto) {
         return new ResponseEntity<>(eventBookingService.create(eventId, eventBookingDto), HttpStatus.CREATED);
     }
 

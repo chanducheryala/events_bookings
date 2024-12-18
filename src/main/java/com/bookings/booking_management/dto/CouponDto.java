@@ -9,12 +9,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.validation.annotation.Validated;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Accessors(chain = true)
+@Validated
 public class CouponDto {
 
     private Long id;
@@ -23,7 +25,6 @@ public class CouponDto {
     private String title;
 
     @NotNull(message = "discount type cannot be null")
-    @Positive(message = "discount type cannot be negative")
     private DiscountType discountType;
 
     @NotNull(message = "discount cannot be null")

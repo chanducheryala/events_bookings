@@ -6,9 +6,11 @@ import com.bookings.booking_management.model.Ticket;
 import com.bookings.booking_management.repository.TicketRepository;
 import com.bookings.booking_management.service.EventBookingService;
 import com.bookings.booking_management.service.TicketService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class TicketServiceImpl implements TicketService {
 
@@ -25,11 +27,13 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Long getCapacityByEventIdAndTicketType(Long ticketTypeId) {
+        log.info("ticketTypeId is {}", ticketTypeId);
         return ticketRepository.getCapacityByEventIdAndTicketType(ticketTypeId);
     }
 
     @Override
     public Long getCostByEventIdAndTicketType(Long ticketTypeId) {
+        log.info("ticketTypeId is {}", ticketTypeId);
         return ticketRepository.getTicketCostByEventAndTicketType(ticketTypeId);
     }
 
