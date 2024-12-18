@@ -83,7 +83,7 @@ public class EventBookingBuilderImpl implements EventBookingBuilder{
 
     @Override
     public EventBookingBuilder applyCoupon() {
-        this.price = couponFactory.getCouponFactory(coupon.getDiscountType()).applyCoupon(
+        this.price = couponFactory.getCouponStrategy(coupon.getDiscountType()).applyCoupon(
                 coupon.getDiscountType(),
                 reservedSeatType.getId(),
                 reservedSeats,

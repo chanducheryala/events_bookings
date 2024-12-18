@@ -1,19 +1,15 @@
 package com.bookings.booking_management.service.impl;
 
 import com.bookings.booking_management.dto.EventBookingDto;
-import com.bookings.booking_management.enums.DiscountType;
 import com.bookings.booking_management.factory.coupon.CouponFactory;
 import com.bookings.booking_management.factory.payment.PaymentFactory;
 import com.bookings.booking_management.mapper.EventBookingMapper;
-import com.bookings.booking_management.model.Event;
 import com.bookings.booking_management.model.EventBooking;
-import com.bookings.booking_management.model.Ticket;
 import com.bookings.booking_management.repository.EventBookingRepository;
 import com.bookings.booking_management.service.EventBookingService;
 import com.bookings.booking_management.service.EventService;
 import com.bookings.booking_management.service.Payment;
 import com.bookings.booking_management.service.TicketService;
-import com.bookings.booking_management.strategy.coupon.CouponStrategy;
 import com.bookings.booking_management.validator.EventBookingValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
