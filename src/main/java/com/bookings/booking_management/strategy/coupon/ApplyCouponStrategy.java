@@ -1,6 +1,7 @@
 package com.bookings.booking_management.strategy.coupon;
 
 import com.bookings.booking_management.dto.EventBookingDto;
+import com.bookings.booking_management.enums.DiscountType;
 import com.bookings.booking_management.factory.coupon.DiscountFactory;
 import com.bookings.booking_management.service.TicketService;
 import com.bookings.booking_management.strategy.discount.DiscountStrategy;
@@ -10,21 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ApplyCouponStrategy implements CouponStrategy{
 
     private  DiscountFactory discountFactory;
-    private TicketService ticketTypeService;
+    private TicketService ticketService;
 
     public ApplyCouponStrategy(){};
 
     @Autowired
-    public ApplyCouponStrategy(DiscountFactory discountFactory, TicketService ticketTypeService) {
+    public ApplyCouponStrategy(DiscountFactory discountFactory, TicketService ticketService) {
         this.discountFactory = discountFactory;
-        this.ticketTypeService = ticketTypeService;
+        this.ticketService = ticketService;
     }
 
     @Override
-    public void applyCoupon(EventBookingDto eventBookingDto) {
-        DiscountStrategy discountStrategy = discountFactory.getCouponFactory(eventBookingDto.getDiscountType());
-//        Long ticketCost = ticketTypeService.getTicketCostByEventAndTicketType(eventBookingDto.getId(), eventBookingDto.getReserveSeatType());
-//        Long bookingPrice = discountStrategy.applyDiscount((ticketCost * eventBookingDto.getReservedSeats()), eventBookingDto.getDiscount());
-        eventBookingDto.setPrice(0L);
+    public Long applyCoupon(DiscountType discountType, Long reservedTicketId, Long reservedSeats, Long discount) {
+        DiscountStrategy discountStrategy = discountFactory.getCouponFactory(discountType);
+        Long ticketCost = ticketService.getCostByEventIdAndTicketType(reservedTicketId);
+        return discountStrategy.applyDiscount((ticketCost * reservedSeats), discount);
     }
 }

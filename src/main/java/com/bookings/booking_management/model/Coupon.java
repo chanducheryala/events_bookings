@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,4 +34,6 @@ public class Coupon {
     @Column(name = "discount")
     private Long discount;
 
+    @OneToMany(mappedBy = "coupon")
+    List<EventBooking> eventBookings;
 }

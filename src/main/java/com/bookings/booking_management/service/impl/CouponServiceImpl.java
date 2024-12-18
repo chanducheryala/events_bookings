@@ -28,4 +28,9 @@ public class CouponServiceImpl implements CouponService {
         Coupon savedCoupon = couponRepository.save(coupon);
         return couponMapper.toDto(coupon);
     }
+
+    @Override
+    public Coupon getById(Long id) {
+        return couponRepository.getById(id);
+    }
 }

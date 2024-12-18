@@ -1,8 +1,8 @@
 package com.bookings.booking_management.model;
 
 
+import com.bookings.booking_management.enums.DiscountType;
 import com.bookings.booking_management.enums.PaymentType;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -28,7 +28,6 @@ public class EventBooking {
     @Column(name = "reserved_seats")
     private Long reservedSeats;
 
-
     @ManyToOne
     @JoinColumn(name = "event")
     private Event event;
@@ -37,11 +36,36 @@ public class EventBooking {
     @JoinColumn(name = "ticket", referencedColumnName = "id")
     private Ticket reservedSeatType;
 
+    @Column(name = "discount_type")
+    private DiscountType discountType;
 
     @Column(name = "payment_type")
     private PaymentType paymentType;
 
+    @Column(name = "price")
+    private Long price;
 
+    @ManyToOne
+    @JoinColumn(name = "coupon", referencedColumnName = "id")
+    private Coupon coupon;
+
+    public EventBooking(
+            Event event,
+            String email,
+            Long reservedSeats,
+            Ticket reservedSeatType,
+            PaymentType paymentType,
+            Coupon coupon,
+            Long price
+    ) {
+        this.event = event;
+        this.email = email;
+        this.reservedSeats = reservedSeats;
+        this.paymentType = paymentType;
+        this.reservedSeatType = reservedSeatType;
+        this.coupon = coupon;
+        this.price = price;
+    }
 }
 
 

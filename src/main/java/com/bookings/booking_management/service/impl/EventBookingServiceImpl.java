@@ -40,7 +40,7 @@ public class EventBookingServiceImpl implements EventBookingService {
             EventService eventService,
             @Lazy TicketService ticketService,
             PaymentFactory paymentFactory,
-            EventBookingValidator eventBookingValidator,
+            @Lazy EventBookingValidator eventBookingValidator,
             EventBookingMapper eventBookingMapper,
             CouponFactory couponFactory
     ) {
@@ -57,43 +57,28 @@ public class EventBookingServiceImpl implements EventBookingService {
     public EventBookingDto create(Long eventId, EventBookingDto eventBookingDto) {
         Event event = eventService.getEventById(eventId);
         eventBookingValidator.validateTicketAvailability(eventId, eventBookingDto);
-        setBookingDiscountTypeIfNull(eventBookingDto);
-        applyCoupon(eventBookingDto);
         processPayment(eventId, eventBookingDto);
         EventBooking eventBooking = eventBookingMapper.toEntity(event, eventBookingDto);
         EventBooking savedEventBooking = eventBookingRepository.save(eventBooking);
         return eventBookingMapper.toDto(savedEventBooking);
     }
 
-    private void setBookingDiscountTypeIfNull(EventBookingDto eventBookingDto) {
-        if(eventBookingDto.getDiscountType() == null) {
-            eventBookingDto.setDiscountType(DiscountType.NON_COUPON);
+    private void processPayment(Long eventId, EventBookingDto eventBookingDto) {
+        Payment payment = paymentFactory.getPayment(eventBookingDto.getPaymentType());
+        Long ticketCost = ticketService.getCostByEventIdAndTicketType(eventBookingDto.getReservedSeatType());
+        Long amount = payment.calculateAmount(eventBookingDto.getReservedSeats(), ticketCost);
+        if (!payment.processPayment(amount)) {
+            throw new RuntimeException("Payment failed for event ID " + eventId);
         }
     }
 
-    private void applyCoupon(EventBookingDto eventBookingDto) {
-        CouponStrategy couponStrategy = couponFactory.getCouponFactory(eventBookingDto.getDiscountType());
-        couponStrategy.applyCoupon(eventBookingDto);
-    }
-
-    private void processPayment(Long eventId, EventBookingDto eventBookingDto) {
-        Payment payment = paymentFactory.getPayment(eventBookingDto.getPaymentType());
-//        Long ticketCost = ticketTypeService.getTicketCostByEventAndTicketType(eventId, eventBookingDto.getReserveSeatType());
-//        Long amount = payment.calculateAmount(eventBookingDto.getReservedSeats(), ticketCost);
-//        if (!payment.processPayment(amount)) {
-//            throw new RuntimeException("Payment failed for event ID " + eventId);
-//        }
-    }
-
-    public Long getReservationSeatsCountByTicketTypes(Long eventId, Ticket type) {
-        log.info("eventId and ticketType is {}, {}", eventId, type);
-        return 0L;
-        //return eventBookingRepository.getReservationSeatsCountByTicketTypes(eventId, type);
+    public Long getReservationSeatsCountByTicketTypeId(Long ticketTypeId) {
+        log.info("ticketTypeId is {}", ticketTypeId);
+        return eventBookingRepository.getReservationSeatsCountByTicketId(ticketTypeId);
     }
 
     @Override
     public List<EventBooking> getEventBookingsByEmail(String email) {
-//        return eventBookingRepository.getEventBookingsByEmail(email);
-        return List.of(new EventBooking());
+        return eventBookingRepository.getEventBookingsByEmail(email);
     }
 }

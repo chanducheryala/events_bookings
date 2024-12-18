@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -30,15 +29,13 @@ public class EventBookingDto {
     @Positive(message = "reserved seats cannot be negative")
     private Long reservedSeats;
 
-    @NotNull(message = "reserved seat type should one of PLATINUM / GOLD / SILVER")
-    private Ticket reservedSeatType;
+    @NotNull(message = "reserved seat type should not be null")
+    private Long reservedSeatType;
 
     @NotNull(message = "payment_type cannot be null")
     private PaymentType paymentType;
 
-    private Long discount;
-
-    private DiscountType discountType;
+    private Long coupon;
 
     private Long price;
 }

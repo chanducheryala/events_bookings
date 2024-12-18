@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "ticket")
+@Table(name = "tickets")
 public class Ticket {
 
     @Id

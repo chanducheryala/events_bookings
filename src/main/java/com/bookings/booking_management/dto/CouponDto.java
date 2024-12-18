@@ -16,6 +16,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 public class CouponDto {
+
     private Long id;
 
     @NotNull(message = "title cannot be null")
