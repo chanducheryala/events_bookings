@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class EventMapper {
-
     private final EventBuilder eventBuilder;
+
     public Event toEntity(EventDto eventDto) {
         return eventBuilder
                 .setTitle(eventDto.getTitle())

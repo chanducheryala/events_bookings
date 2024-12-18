@@ -2,7 +2,11 @@ package com.bookings.booking_management.builder.ticket;
 
 import com.bookings.booking_management.model.Event;
 import com.bookings.booking_management.model.Ticket;
+import jakarta.persistence.Column;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class TicketBuilderImpl implements TicketBuilder {
     private String type;
     private Long capacity;

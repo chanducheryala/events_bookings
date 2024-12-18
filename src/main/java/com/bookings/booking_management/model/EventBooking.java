@@ -14,17 +14,13 @@ import lombok.experimental.Accessors;
 @Setter
 @Getter
 @Table(name =  "event_bookings")
-public class EventBooking {
 
+public class EventBooking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "event_id")
-    @JsonBackReference
-    private Event event;
 
     @Column(name = "email")
     private String email;
@@ -33,21 +29,27 @@ public class EventBooking {
     private Long reservedSeats;
 
 
-    @Column(name = "reserved_seat_type")
-    private Ticket reserveSeatType;
+    @ManyToOne
+    @JoinColumn(name = "event")
+    private Event event;
+
+    @OneToOne
+    @JoinColumn(name = "ticket", referencedColumnName = "id")
+    private Ticket reservedSeatType;
+
 
     @Column(name = "payment_type")
     private PaymentType paymentType;
 
 
-    @Override
-    public String toString() {
-        return "EventBooking{" +
-                "id=" + id +
-                ", event=" + event +
-                ", email='" + email + '\'' +
-                ", reservedSeats=" + reservedSeats +
-                ", reserveSeatType=" + reserveSeatType +
-                '}';
-    }
 }
+
+
+
+
+
+
+
+
+
+

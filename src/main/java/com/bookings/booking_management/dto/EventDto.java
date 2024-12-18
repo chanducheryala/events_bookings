@@ -41,5 +41,5 @@ public class EventDto {
     private String language;
 
     @Valid
-    List<TicketDto> ticketTypes;
+    List<TicketDto> tickets;
 }

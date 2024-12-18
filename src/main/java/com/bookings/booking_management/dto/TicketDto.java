@@ -12,7 +12,6 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Accessors(chain = true)
 public class TicketDto {
 

@@ -5,14 +5,14 @@ import jakarta.transaction.Transactional;
 
 @Transactional
 public class CreditsPayment implements Payment {
-    @Override
-    public boolean processPayment(Long amount) {
-        // add logic with credit card payment
-        return true;
-    }
-
-    @Override
-    public Long calculateAmount(Long capacity, Long ticketCost) {
-        return capacity * ticketCost;
-    }
+//    @Override
+//    public boolean processPayment(Long amount) {
+//        // add logic with credit card payment
+//        return true;
+//    }
+//
+//    @Override
+//    public Long calculateAmount(Long capacity, Long ticketCost) {
+//        return capacity * ticketCost;
+//    }
 }

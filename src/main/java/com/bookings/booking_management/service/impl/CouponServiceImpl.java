@@ -12,20 +12,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class CouponServiceImpl implements CouponService {
 
-    @Autowired
-    private final CouponMapper couponMapper;
-    private CouponRepository couponRepository;
-
-    public CouponServiceImpl(CouponMapper couponMapper, CouponRepository couponRepository) {
-        this.couponMapper = couponMapper;
-        this.couponRepository = couponRepository;
-    }
-
-    @Transactional
-    @Override
-    public CouponDto create(CouponDto couponDto) {
-        Coupon coupon = couponMapper.toEntity(couponDto);
-        Coupon savedCoupon = couponRepository.save(coupon);
-        return couponMapper.toDto(coupon);
-    }
+//    @Autowired
+//    private final CouponMapper couponMapper;
+//    private CouponRepository couponRepository;
+//
+//    public CouponServiceImpl(CouponMapper couponMapper, CouponRepository couponRepository) {
+//        this.couponMapper = couponMapper;
+//        this.couponRepository = couponRepository;
+//    }
+//
+//    @Transactional
+//    @Override
+//    public CouponDto create(CouponDto couponDto) {
+//        Coupon coupon = couponMapper.toEntity(couponDto);
+//        Coupon savedCoupon = couponRepository.save(coupon);
+//        return couponMapper.toDto(coupon);
+//    }
 }

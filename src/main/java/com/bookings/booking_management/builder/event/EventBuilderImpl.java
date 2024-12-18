@@ -1,11 +1,13 @@
 package com.bookings.booking_management.builder.event;
 
 import com.bookings.booking_management.model.Event;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Component
 public class EventBuilderImpl implements EventBuilder {
     private String title;
     private String about;

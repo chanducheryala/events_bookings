@@ -10,7 +10,6 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @AllArgsConstructor
-@RequiredArgsConstructor
 @NoArgsConstructor
 @Table(name = "ticket")
 public class Ticket {
@@ -29,9 +28,13 @@ public class Ticket {
     @Column(name = "cost")
     private Long cost;
 
-    @ManyToOne
-    @JoinColumn(name = "event_id")
+    @OneToOne
+    @JoinColumn(name = "event_booking_id", referencedColumnName = "id")
+    private EventBooking eventBooking;
+
     @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "event")
     private Event event;
 
     public Ticket(String type, Long cost, Long capacity, Event event) {

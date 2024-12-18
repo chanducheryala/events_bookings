@@ -17,7 +17,6 @@ import java.util.List;
 @Accessors(chain = true)
 @Getter
 @Setter
-@RequiredArgsConstructor
 @Table(name = "events", indexes = {
         @Index(name = "idx_event_date", columnList = "date")
 })
@@ -49,6 +48,13 @@ public class Event {
     @Column(name = "language")
     private String language;
 
+    @OneToMany(mappedBy = "event")
+    private List<EventBooking> eventBookings;
+
+    @OneToMany(mappedBy = "event")
+    private List<Ticket> tickets;
+
+
     public Event(String title, String about, LocalDate date, LocalTime time, Duration duration, String venue, String language) {
         this.title = title;
         this.about = about;
@@ -58,14 +64,6 @@ public class Event {
         this.venue = venue;
         this.language = language;
     }
-
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private List<Ticket> tickets;
-
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<EventBooking> eventBookings;
 
     @Override
     public String toString() {
