@@ -29,7 +29,6 @@ public class TicketMapper {
         return new TicketDto()
                 .setId(ticket.getId())
                 .setType(ticket.getType())
-                .setEvent(ticket.getEvent())
                 .setCapacity(ticket.getCapacity())
                 .setCost(ticket.getCost());
     }

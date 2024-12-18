@@ -45,6 +45,7 @@ public class EventServiceImpl implements EventService {
         Event event = createEvent(eventDto);
         log.info("created event is {}", event);
         List<TicketDto> savedTickets = createEventTickets(eventDto, event);
+        log.info("savedTickets is {}", savedTickets);
         eventDto.setTickets(savedTickets);
         eventDto.setId(event.getId());
         return eventDto;
