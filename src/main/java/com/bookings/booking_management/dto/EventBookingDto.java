@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 public class EventBookingDto {
     private Long id;
 
-    private Event event;
+    private Long event;
 
     @NotNull(message = "email cannot be null")
     private String email;

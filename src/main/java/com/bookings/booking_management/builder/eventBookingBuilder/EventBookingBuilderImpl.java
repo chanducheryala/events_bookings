@@ -8,6 +8,7 @@ import com.bookings.booking_management.model.Event;
 import com.bookings.booking_management.model.EventBooking;
 import com.bookings.booking_management.model.Ticket;
 import com.bookings.booking_management.service.CouponService;
+import com.bookings.booking_management.service.EventService;
 import com.bookings.booking_management.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,23 +23,29 @@ public class EventBookingBuilderImpl implements EventBookingBuilder{
     private Ticket reservedSeatType;
     private PaymentType paymentType;
     private Coupon coupon;
-    private Long discount;
-    private DiscountType discountType;
     private Long price;
 
     private final TicketService ticketService;
-    private CouponFactory couponFactory;
-    private CouponService couponService;
+    private final CouponFactory couponFactory;
+    private final CouponService couponService;
+    private final EventService eventService;
 
     @Autowired
-    public EventBookingBuilderImpl(TicketService ticketService, CouponFactory couponFactory) {
+    public EventBookingBuilderImpl(
+            TicketService ticketService,
+            CouponFactory couponFactory,
+            CouponService couponService,
+            EventService eventService
+    ) {
         this.ticketService = ticketService;
         this.couponFactory = couponFactory;
+        this.couponService = couponService;
+        this.eventService = eventService;
     }
 
     @Override
-    public EventBookingBuilder setEvent(Event event) {
-        this.event = event;
+    public EventBookingBuilder setEvent(Long eventId) {
+        this.event = eventService.getEventById(eventId);
         return this;
     }
 
@@ -76,7 +83,7 @@ public class EventBookingBuilderImpl implements EventBookingBuilder{
 
     @Override
     public EventBookingBuilder applyCoupon() {
-        this.price = couponFactory.getCouponFactory(discountType).applyCoupon(
+        this.price = couponFactory.getCouponFactory(coupon.getDiscountType()).applyCoupon(
                 coupon.getDiscountType(),
                 reservedSeatType.getId(),
                 reservedSeats,

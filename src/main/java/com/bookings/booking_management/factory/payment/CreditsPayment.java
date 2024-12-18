@@ -11,9 +11,4 @@ public class CreditsPayment implements Payment {
         // add logic with credit card payment
         return true;
     }
-
-    @Override
-    public Long calculateAmount(Long capacity, Long ticketCost) {
-        return capacity * ticketCost;
-    }
 }

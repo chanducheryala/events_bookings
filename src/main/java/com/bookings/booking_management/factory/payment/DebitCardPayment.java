@@ -12,8 +12,4 @@ public class DebitCardPayment implements Payment {
         return true;
     }
 
-    @Override
-    public Long calculateAmount(Long capacity, Long ticketCost) {
-        return capacity * ticketCost;
-    }
 }

@@ -7,7 +7,7 @@ import com.bookings.booking_management.model.EventBooking;
 
 public interface EventBookingBuilder {
 
-    EventBookingBuilder setEvent(Event event);
+    EventBookingBuilder setEvent(Long eventId);
 
     EventBookingBuilder setEmail(String email);
 

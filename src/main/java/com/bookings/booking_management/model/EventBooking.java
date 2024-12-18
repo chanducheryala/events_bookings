@@ -66,6 +66,21 @@ public class EventBooking {
         this.coupon = coupon;
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "EventBooking{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", reservedSeats=" + reservedSeats +
+                ", event=" + event +
+                ", reservedSeatType=" + reservedSeatType +
+                ", discountType=" + discountType +
+                ", paymentType=" + paymentType +
+                ", price=" + price +
+                ", coupon=" + coupon +
+                '}';
+    }
 }
 
 

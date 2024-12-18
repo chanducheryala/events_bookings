@@ -55,19 +55,17 @@ public class EventBookingServiceImpl implements EventBookingService {
 
     @Override
     public EventBookingDto create(Long eventId, EventBookingDto eventBookingDto) {
-        Event event = eventService.getEventById(eventId);
         eventBookingValidator.validateTicketAvailability(eventId, eventBookingDto);
-        processPayment(eventId, eventBookingDto);
-        EventBooking eventBooking = eventBookingMapper.toEntity(event, eventBookingDto);
+        EventBooking eventBooking = eventBookingMapper.toEntity(eventBookingDto);
+        processPayment(eventId, eventBooking);
         EventBooking savedEventBooking = eventBookingRepository.save(eventBooking);
+        log.info(eventBooking.toString());
         return eventBookingMapper.toDto(savedEventBooking);
     }
 
-    private void processPayment(Long eventId, EventBookingDto eventBookingDto) {
-        Payment payment = paymentFactory.getPayment(eventBookingDto.getPaymentType());
-        Long ticketCost = ticketService.getCostByEventIdAndTicketType(eventBookingDto.getReservedSeatType());
-        Long amount = payment.calculateAmount(eventBookingDto.getReservedSeats(), ticketCost);
-        if (!payment.processPayment(amount)) {
+    private void processPayment(Long eventId, EventBooking eventBooking) {
+        Payment payment = paymentFactory.getPayment(eventBooking.getPaymentType());
+        if (!payment.processPayment(eventBooking.getPrice())) {
             throw new RuntimeException("Payment failed for event ID " + eventId);
         }
     }

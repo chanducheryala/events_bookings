@@ -17,9 +17,9 @@ public class EventBookingMapper {
         this.eventBookingBuilder = eventBookingBuilder;
     }
 
-    public EventBooking toEntity(Event event, EventBookingDto eventBookingDto) {
+    public EventBooking toEntity(EventBookingDto eventBookingDto) {
         return eventBookingBuilder
-                .setEvent(event)
+                .setEvent(eventBookingDto.getEvent())
                 .setEmail(eventBookingDto.getEmail())
                 .setReservedSeats(eventBookingDto.getReservedSeats())
                 .setReservedSeatType(eventBookingDto.getReservedSeatType())
