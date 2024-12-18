@@ -22,15 +22,17 @@ public class TicketServiceImpl implements TicketService {
         this.ticketMapper = ticketMapper;
     }
 
-//    @Override
-//    public Long getTicketTypeCapacityByEventId(Long eventId, Ticket type) {
+    @Override
+    public Long getTicketTypeCapacityByEventId(Long eventId, Ticket type) {
 //        return ticketTypeRepository.getTicketTypeCapacityByEventId(eventId, type);
-//    }
-//
-//    @Override
-//    public Long getTicketCostByEventAndTicketType(Long eventId, Ticket ticketType) {
+        return 0L;
+    }
+
+    @Override
+    public Long getTicketCostByEventAndTicketType(Long eventId, Ticket ticketType) {
 //        return ticketTypeRepository.getTicketCostByEventAndTicketType(eventId, ticketType);
-//    }
+        return 0L;
+    }
 
 
     @Override

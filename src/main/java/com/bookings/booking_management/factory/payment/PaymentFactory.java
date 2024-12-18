@@ -2,7 +2,9 @@ package com.bookings.booking_management.factory.payment;
 
 import com.bookings.booking_management.enums.PaymentType;
 import com.bookings.booking_management.service.Payment;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PaymentFactory {
     public static Payment getPayment(PaymentType paymentType) {
         switch (paymentType) {
