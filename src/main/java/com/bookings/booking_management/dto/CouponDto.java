@@ -1,7 +1,7 @@
 package com.bookings.booking_management.dto;
 
 
-import com.bookings.booking_management.enums.DiscountType;
+import com.bookings.booking_management.enums.CouponType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ public class CouponDto {
     private String title;
 
     @NotNull(message = "discount type cannot be null")
-    private DiscountType discountType;
+    private CouponType couponType;
 
     @NotNull(message = "discount cannot be null")
     @Positive(message = "discount cannot be negative")

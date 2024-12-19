@@ -1,9 +1,9 @@
 package com.bookings.booking_management.strategy.coupon;
 
-import com.bookings.booking_management.enums.DiscountType;
+import com.bookings.booking_management.enums.CouponType;
 
 public interface CouponStrategy {
-    float applyCoupon(DiscountType discountType, Long reservedSeatId, Long reservedSeats, float discount);
+    float applyCoupon(CouponType couponType, Long reservedSeatId, Long reservedSeats, float discount);
 }
 
 

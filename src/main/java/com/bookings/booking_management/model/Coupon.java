@@ -1,6 +1,6 @@
 package com.bookings.booking_management.model;
 
-import com.bookings.booking_management.enums.DiscountType;
+import com.bookings.booking_management.enums.CouponType;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,7 +30,7 @@ public class Coupon {
 
     @Column(name = "discount_type")
     @Enumerated(EnumType.STRING)
-    private DiscountType discountType;
+    private CouponType couponType;
 
     @Column(name = "discount")
     private float discount;

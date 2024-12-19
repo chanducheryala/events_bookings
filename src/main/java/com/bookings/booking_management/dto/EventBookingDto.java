@@ -1,9 +1,6 @@
 package com.bookings.booking_management.dto;
 
-import com.bookings.booking_management.enums.DiscountType;
 import com.bookings.booking_management.enums.PaymentType;
-import com.bookings.booking_management.model.Event;
-import com.bookings.booking_management.model.Ticket;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;

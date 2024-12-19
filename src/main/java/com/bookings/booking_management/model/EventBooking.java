@@ -1,7 +1,6 @@
 package com.bookings.booking_management.model;
 
 
-import com.bookings.booking_management.enums.DiscountType;
 import com.bookings.booking_management.enums.PaymentType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

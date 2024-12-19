@@ -12,7 +12,7 @@ public class CouponMapper {
     public Coupon toEntity(CouponDto couponDto) {
         return new Coupon()
                 .setTitle(couponDto.getTitle())
-                .setDiscountType(couponDto.getDiscountType())
+                .setCouponType(couponDto.getCouponType())
                 .setDiscount(couponDto.getDiscount());
     }
 
@@ -20,7 +20,7 @@ public class CouponMapper {
         return new CouponDto()
                 .setId(coupon.getId())
                 .setDiscount(coupon.getDiscount())
-                .setDiscountType(coupon.getDiscountType())
+                .setCouponType(coupon.getCouponType())
                 .setTitle(coupon.getTitle());
     }
 }

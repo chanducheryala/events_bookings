@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CouponServiceImpl implements CouponService {
 
-    @Autowired
     private final CouponMapper couponMapper;
     private CouponRepository couponRepository;
 
+    @Autowired
     public CouponServiceImpl(CouponMapper couponMapper, CouponRepository couponRepository) {
         this.couponMapper = couponMapper;
         this.couponRepository = couponRepository;

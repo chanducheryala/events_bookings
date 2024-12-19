@@ -1,6 +1,6 @@
 package com.bookings.booking_management.builder.eventBookingBuilder;
 
-import com.bookings.booking_management.enums.DiscountType;
+import com.bookings.booking_management.enums.CouponType;
 import com.bookings.booking_management.enums.PaymentType;
 import com.bookings.booking_management.factory.coupon.CouponFactory;
 import com.bookings.booking_management.model.Coupon;
@@ -85,11 +85,11 @@ public class EventBookingBuilderImpl implements EventBookingBuilder{
     @Override
     public EventBookingBuilder applyCoupon() {
         CouponStrategy couponStrategy = coupon == null
-                ? couponFactory.getCouponStrategy(DiscountType.NON_COUPON)
-                : couponFactory.getCouponStrategy(coupon.getDiscountType());
+                ? couponFactory.getCouponStrategy(CouponType.NON_COUPON)
+                : couponFactory.getCouponStrategy(coupon.getCouponType());
 
         this.price = couponStrategy.applyCoupon(
-                coupon == null ? null : coupon.getDiscountType(),
+                coupon == null ? null : coupon.getCouponType(),
                 reservedSeatType.getId(),
                 reservedSeats,
                 coupon == null ? 0 : coupon.getDiscount()

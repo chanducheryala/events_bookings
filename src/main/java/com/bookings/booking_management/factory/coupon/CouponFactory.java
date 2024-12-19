@@ -1,6 +1,6 @@
 package com.bookings.booking_management.factory.coupon;
 
-import com.bookings.booking_management.enums.DiscountType;
+import com.bookings.booking_management.enums.CouponType;
 import com.bookings.booking_management.strategy.coupon.AmountCouponStrategy;
 import com.bookings.booking_management.strategy.coupon.CouponStrategy;
 import com.bookings.booking_management.strategy.coupon.NonCouponStrategy;
@@ -26,8 +26,8 @@ public class CouponFactory {
         this.nonCouponStrategy = nonCouponStrategy;
     }
 
-    public CouponStrategy getCouponStrategy(DiscountType discountType) {
-        switch(discountType) {
+    public CouponStrategy getCouponStrategy(CouponType couponType) {
+        switch(couponType) {
             case AMOUNT:
                 return amountCouponStrategy;
             case PERCENTAGE:

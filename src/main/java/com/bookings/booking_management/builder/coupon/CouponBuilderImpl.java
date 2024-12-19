@@ -1,13 +1,13 @@
 package com.bookings.booking_management.builder.coupon;
 
-import com.bookings.booking_management.enums.DiscountType;
+import com.bookings.booking_management.enums.CouponType;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CouponBuilderImpl implements CouponBuilder{
 
     private String title;
-    private DiscountType discountType;
+    private CouponType couponType;
     private float discount;
 
     @Override
@@ -17,8 +17,8 @@ public class CouponBuilderImpl implements CouponBuilder{
     }
 
     @Override
-    public CouponBuilder setDiscountType(DiscountType discountType) {
-        this.discountType = discountType;
+    public CouponBuilder setDiscountType(CouponType couponType) {
+        this.couponType = couponType;
         return this;
     }
 
