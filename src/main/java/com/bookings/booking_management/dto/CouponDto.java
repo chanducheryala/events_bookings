@@ -29,5 +29,5 @@ public class CouponDto {
 
     @NotNull(message = "discount cannot be null")
     @Positive(message = "discount cannot be negative")
-    private Long discount;
+    private float discount;
 }

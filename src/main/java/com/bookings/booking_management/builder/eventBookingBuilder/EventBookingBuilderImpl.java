@@ -1,6 +1,5 @@
 package com.bookings.booking_management.builder.eventBookingBuilder;
 
-import com.bookings.booking_management.enums.DiscountType;
 import com.bookings.booking_management.enums.PaymentType;
 import com.bookings.booking_management.factory.coupon.CouponFactory;
 import com.bookings.booking_management.model.Coupon;
@@ -10,10 +9,12 @@ import com.bookings.booking_management.model.Ticket;
 import com.bookings.booking_management.service.CouponService;
 import com.bookings.booking_management.service.EventService;
 import com.bookings.booking_management.service.TicketService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
+@Slf4j
 @Component
 public class EventBookingBuilderImpl implements EventBookingBuilder{
 
@@ -23,7 +24,7 @@ public class EventBookingBuilderImpl implements EventBookingBuilder{
     private Ticket reservedSeatType;
     private PaymentType paymentType;
     private Coupon coupon;
-    private Long price;
+    private float price;
 
     private final TicketService ticketService;
     private final CouponFactory couponFactory;
@@ -70,7 +71,7 @@ public class EventBookingBuilderImpl implements EventBookingBuilder{
     @Override
     public EventBookingBuilder setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
-        return null;
+        return this;
     }
 
 
@@ -89,6 +90,7 @@ public class EventBookingBuilderImpl implements EventBookingBuilder{
                 reservedSeats,
                 coupon.getDiscount()
         );
+        log.info("price after discount is {}", this.price);
         return this;
     }
 

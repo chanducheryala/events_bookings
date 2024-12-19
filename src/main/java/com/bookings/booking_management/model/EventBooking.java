@@ -3,6 +3,7 @@ package com.bookings.booking_management.model;
 
 import com.bookings.booking_management.enums.DiscountType;
 import com.bookings.booking_management.enums.PaymentType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -14,13 +15,12 @@ import lombok.experimental.Accessors;
 @Setter
 @Getter
 @Table(name =  "event_bookings")
-
 public class EventBooking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
 
     @Column(name = "email")
     private String email;
@@ -29,24 +29,24 @@ public class EventBooking {
     private Long reservedSeats;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "event")
     private Event event;
 
-    @OneToOne
-    @JoinColumn(name = "ticket", referencedColumnName = "id")
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "ticket")
     private Ticket reservedSeatType;
-
-    @Column(name = "discount_type")
-    private DiscountType discountType;
 
     @Column(name = "payment_type")
     private PaymentType paymentType;
 
     @Column(name = "price")
-    private Long price;
+    private float price;
 
     @ManyToOne
-    @JoinColumn(name = "coupon", referencedColumnName = "id")
+    @JsonBackReference
+    @JoinColumn(name = "coupon")
     private Coupon coupon;
 
     public EventBooking(
@@ -56,7 +56,7 @@ public class EventBooking {
             Ticket reservedSeatType,
             PaymentType paymentType,
             Coupon coupon,
-            Long price
+            float price
     ) {
         this.event = event;
         this.email = email;
@@ -75,7 +75,6 @@ public class EventBooking {
                 ", reservedSeats=" + reservedSeats +
                 ", event=" + event +
                 ", reservedSeatType=" + reservedSeatType +
-                ", discountType=" + discountType +
                 ", paymentType=" + paymentType +
                 ", price=" + price +
                 ", coupon=" + coupon +

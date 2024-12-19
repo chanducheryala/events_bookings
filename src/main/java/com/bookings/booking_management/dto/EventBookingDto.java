@@ -37,5 +37,19 @@ public class EventBookingDto {
 
     private Long coupon;
 
-    private Long price;
+    private float price;
+
+    @Override
+    public String toString() {
+        return "EventBookingDto{" +
+                "id=" + id +
+                ", event=" + event +
+                ", email='" + email + '\'' +
+                ", reservedSeats=" + reservedSeats +
+                ", reservedSeatType=" + reservedSeatType +
+                ", paymentType=" + paymentType +
+                ", coupon=" + coupon +
+                ", price=" + price +
+                '}';
+    }
 }

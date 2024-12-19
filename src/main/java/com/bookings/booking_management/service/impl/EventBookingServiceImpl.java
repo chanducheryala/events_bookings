@@ -54,6 +54,7 @@ public class EventBookingServiceImpl implements EventBookingService {
         eventBookingValidator.validateTicketAvailability(eventId, eventBookingDto);
         eventBookingDto.setEvent(eventId);
         EventBooking eventBooking = eventBookingMapper.toEntity(eventBookingDto);
+        log.info("eventBooking is {}", eventBooking.toString());
         processPayment(eventId, eventBooking);
         EventBooking savedEventBooking = eventBookingRepository.save(eventBooking);
         log.info(eventBooking.toString());

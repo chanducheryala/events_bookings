@@ -1,9 +1,11 @@
 package com.bookings.booking_management.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,18 +28,18 @@ public class Ticket {
     private Long capacity;
 
     @Column(name = "cost")
-    private Long cost;
+    private float cost;
 
-    @OneToOne
-    @JoinColumn(name = "event_booking_id", referencedColumnName = "id")
-    private EventBooking eventBooking;
+    @OneToMany(mappedBy = "reservedSeatType")
+    @JsonManagedReference
+    private List<EventBooking> eventBookings;
 
-    @JsonBackReference
     @ManyToOne
+//    @JsonBackReference
     @JoinColumn(name = "event")
     private Event event;
 
-    public Ticket(String type, Long cost, Long capacity, Event event) {
+    public Ticket(String type, float cost, Long capacity, Event event) {
         this.type = type;
         this.cost = cost;
         this.capacity = capacity;

@@ -7,7 +7,7 @@ import com.bookings.booking_management.model.Ticket;
 public interface TicketBuilder {
     TicketBuilder setType(String type);
     TicketBuilder setCapacity(Long capacity);
-    TicketBuilder setCost(Long cost);
+    TicketBuilder setCost(float cost);
     TicketBuilder setEvent(Event event);
     Ticket build();
 }

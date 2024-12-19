@@ -7,7 +7,7 @@ public class CreditsPayment implements Payment {
 
     @Transactional
     @Override
-    public boolean processPayment(Long amount) {
+    public boolean processPayment(float amount) {
         // add logic with credit card payment
         return true;
     }

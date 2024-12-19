@@ -1,5 +1,7 @@
 package com.bookings.booking_management.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -46,10 +48,13 @@ public class Event {
     @Column(name = "language")
     private String language;
 
-    @OneToMany(mappedBy = "event")
+
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
+//    @JsonManagedReference
     private List<EventBooking> eventBookings;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
+//    @JsonManagedReference
     private List<Ticket> tickets;
 
 

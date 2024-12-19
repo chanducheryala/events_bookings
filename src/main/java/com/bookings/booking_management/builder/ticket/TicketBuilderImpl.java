@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class TicketBuilderImpl implements TicketBuilder {
     private String type;
     private Long capacity;
-    private Long cost;
+    private float cost;
     private Event event;
 
     @Override
@@ -26,7 +26,7 @@ public class TicketBuilderImpl implements TicketBuilder {
     }
 
     @Override
-    public TicketBuilder setCost(Long cost) {
+    public TicketBuilder setCost(float cost) {
         this.cost = cost;
         return this;
     }

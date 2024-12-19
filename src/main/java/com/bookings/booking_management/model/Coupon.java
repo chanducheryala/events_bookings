@@ -1,6 +1,7 @@
 package com.bookings.booking_management.model;
 
 import com.bookings.booking_management.enums.DiscountType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,8 +33,9 @@ public class Coupon {
     private DiscountType discountType;
 
     @Column(name = "discount")
-    private Long discount;
+    private float discount;
 
     @OneToMany(mappedBy = "coupon")
+    @JsonManagedReference
     List<EventBooking> eventBookings;
 }

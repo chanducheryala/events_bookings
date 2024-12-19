@@ -25,8 +25,7 @@ public class TicketDto {
     private Long capacity;
 
     @NotNull(message = "cost cannot be empty")
-    @Positive(message = "cost cannot be negative")
-    private Long cost;
+    private float cost;
 
     private Event event;
 

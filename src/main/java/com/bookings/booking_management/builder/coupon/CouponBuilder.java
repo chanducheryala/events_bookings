@@ -8,6 +8,6 @@ public interface CouponBuilder {
 
     CouponBuilder setDiscountType(DiscountType discountType);
 
-    CouponBuilder setDiscount(Long Discount);
+    CouponBuilder setDiscount(float discount);
 
 }

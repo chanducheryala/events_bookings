@@ -4,6 +4,7 @@ import com.bookings.booking_management.builder.eventBookingBuilder.EventBookingB
 import com.bookings.booking_management.dto.EventBookingDto;
 import com.bookings.booking_management.model.Event;
 import com.bookings.booking_management.model.EventBooking;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,7 @@ public class EventBookingMapper {
                 .setEmail(eventBookingDto.getEmail())
                 .setReservedSeats(eventBookingDto.getReservedSeats())
                 .setReservedSeatType(eventBookingDto.getReservedSeatType())
+                .setPaymentType(eventBookingDto.getPaymentType())
                 .setCoupon(eventBookingDto.getCoupon())
                 .applyCoupon()
                 .build();
