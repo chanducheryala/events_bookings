@@ -1,5 +1,6 @@
 package com.bookings.booking_management.builder.eventBookingBuilder;
 
+import com.bookings.booking_management.enums.DiscountType;
 import com.bookings.booking_management.enums.PaymentType;
 import com.bookings.booking_management.factory.coupon.CouponFactory;
 import com.bookings.booking_management.model.Coupon;
@@ -9,6 +10,7 @@ import com.bookings.booking_management.model.Ticket;
 import com.bookings.booking_management.service.CouponService;
 import com.bookings.booking_management.service.EventService;
 import com.bookings.booking_management.service.TicketService;
+import com.bookings.booking_management.strategy.coupon.CouponStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -74,23 +76,26 @@ public class EventBookingBuilderImpl implements EventBookingBuilder{
         return this;
     }
 
-
     @Override
     public EventBookingBuilder setCoupon(Long couponId) {
-        this.coupon = couponService.getById(couponId);
+        this.coupon = couponId == null ? null : couponService.getById(couponId);
         return this;
     }
 
-
     @Override
     public EventBookingBuilder applyCoupon() {
-        this.price = couponFactory.getCouponStrategy(coupon.getDiscountType()).applyCoupon(
-                coupon.getDiscountType(),
+        CouponStrategy couponStrategy = coupon == null
+                ? couponFactory.getCouponStrategy(DiscountType.NON_COUPON)
+                : couponFactory.getCouponStrategy(coupon.getDiscountType());
+
+        this.price = couponStrategy.applyCoupon(
+                coupon == null ? null : coupon.getDiscountType(),
                 reservedSeatType.getId(),
                 reservedSeats,
-                coupon.getDiscount()
+                coupon == null ? 0 : coupon.getDiscount()
         );
-        log.info("price after discount is {}", this.price);
+
+        log.info("Price after discount is {}", this.price);
         return this;
     }
 
